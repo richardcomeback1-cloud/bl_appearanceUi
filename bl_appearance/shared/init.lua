@@ -1,0 +1,3 @@
+-- Shared bootstrap intentionally kept minimal for the Lua rewrite phase.
+-- Runtime logic that previously lived in shared/init.js is now handled directly
+-- by the resource's Lua/server/client files.
