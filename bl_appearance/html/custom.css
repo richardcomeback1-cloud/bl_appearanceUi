@@ -1,330 +1,727 @@
 /* ============================================================
-   BL Appearance — Luxury UI Override
-   Dark gold theme with glassmorphism panels
+   BL Appearance — Premium Luxury UI
+   Dark theme with gold accents, glassmorphism, refined boxes
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ── Root variables ────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   ROOT VARIABLES
+   ══════════════════════════════════════════════════════════════ */
 :root {
-  --gold:          #c9a84c;
-  --gold-light:    #e8cc7a;
-  --gold-dim:      #8a6f32;
-  --surface-0:     #0a0a0c;
-  --surface-1:     #111115;
-  --surface-2:     #18181f;
-  --surface-3:     #22222c;
-  --surface-glass: rgba(22, 22, 30, 0.82);
-  --border-dim:    rgba(201, 168, 76, 0.18);
-  --border-mid:    rgba(201, 168, 76, 0.38);
-  --border-bright: rgba(201, 168, 76, 0.70);
-  --text-primary:  #f0ead8;
-  --text-secondary:#a39882;
-  --text-muted:    #5c5549;
-  --radius-sm:     6px;
-  --radius-md:     10px;
-  --radius-lg:     16px;
+  /* Gold palette */
+  --gold-primary:    #d4af37;
+  --gold-light:      #f0d77a;
+  --gold-dark:       #9a7b2a;
+  --gold-muted:      #785f1f;
+  
+  /* Surfaces */
+  --bg-base:         #080809;
+  --bg-surface-1:    #0d0d0f;
+  --bg-surface-2:    #121215;
+  --bg-surface-3:    #19191d;
+  --bg-surface-4:    #1f1f24;
+  --bg-glass:        rgba(13, 13, 15, 0.88);
+  --bg-glass-light:  rgba(25, 25, 29, 0.75);
+  
+  /* Borders */
+  --border-subtle:   rgba(212, 175, 55, 0.08);
+  --border-light:    rgba(212, 175, 55, 0.15);
+  --border-medium:   rgba(212, 175, 55, 0.30);
+  --border-bright:   rgba(212, 175, 55, 0.55);
+  
+  /* Text */
+  --text-primary:    #f5f1e6;
+  --text-secondary:  #b8a88a;
+  --text-muted:      #6b5f4a;
+  --text-dim:        #3d3628;
+  
+  /* Shadows */
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.40);
+  --shadow-md:       0 4px 16px rgba(0, 0, 0, 0.50);
+  --shadow-lg:       0 8px 32px rgba(0, 0, 0, 0.60);
+  --shadow-glow:     0 0 20px rgba(212, 175, 55, 0.15);
+  
+  /* Spacing */
+  --radius-xs:       4px;
+  --radius-sm:       6px;
+  --radius-md:       10px;
+  --radius-lg:       14px;
+  --radius-xl:       20px;
+  
+  /* Override Svelte vars */
+  --primary:         var(--gold-primary) !important;
+  --secondary:       var(--bg-surface-3) !important;
+  --accent:          var(--gold-light) !important;
 }
 
-/* ── Body / Root ────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   BASE RESET & TYPOGRAPHY
+   ══════════════════════════════════════════════════════════════ */
 html, body {
   background: transparent !important;
-  font-family: 'Inter', system-ui, sans-serif !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+  color: var(--text-primary) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 
 #app {
-  font-family: 'Inter', system-ui, sans-serif !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
 }
 
-/* ── Main wrapper — outer card ──────────────────────────────── */
-/* Svelte compiles wrapper as the top-level flex container */
+/* ══════════════════════════════════════════════════════════════
+   MAIN CONTAINER — OUTER WRAPPER
+   ══════════════════════════════════════════════════════════════ */
 #app > div {
-  border-radius: var(--radius-lg) !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 80px rgba(212, 175, 55, 0.02) !important;
   overflow: hidden !important;
 }
 
-/* ── Navigation / Icon sidebar ──────────────────────────────── */
-/* Left nav bar with icon buttons */
+/* ══════════════════════════════════════════════════════════════
+   LEFT NAVIGATION SIDEBAR
+   ══════════════════════════════════════════════════════════════ */
+/* Nav container */
 .flex.flex-col.h-full.justify-between,
 .flex.flex-col.h-full {
-  background: var(--surface-1) !important;
+  background: linear-gradient(180deg, var(--bg-surface-1) 0%, var(--bg-base) 100%) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+  padding: 0.8vh 0.4vw !important;
 }
 
-/* Each nav tab button */
+/* Nav icon buttons */
 button.flex.flex-col.items-center.justify-center,
 button.flex.flex-col.items-center,
 .flex.flex-col.items-center.justify-center.cursor-pointer {
   position: relative !important;
-  border-radius: var(--radius-sm) !important;
-  transition: background 0.2s ease, color 0.2s ease !important;
-  margin: 2px 4px !important;
-  padding: 10px 8px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--radius-md) !important;
+  margin: 0.3vh 0 !important;
+  padding: 1vh 0.6vw !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 button.flex.flex-col.items-center.justify-center:hover,
 button.flex.flex-col.items-center:hover {
-  background: rgba(201, 168, 76, 0.10) !important;
+  background: rgba(212, 175, 55, 0.06) !important;
+  border-color: var(--border-subtle) !important;
 }
 
-/* Active tab highlight — gold left border + glow */
+/* Active tab */
 button.flex.flex-col.items-center.justify-center.text-\[var\(--primary\)\],
-button.flex.flex-col.items-center.text-\[var\(--primary\)\] {
-  background: rgba(201, 168, 76, 0.12) !important;
-  border-left: 2px solid var(--gold) !important;
-  box-shadow: inset 0 0 16px rgba(201, 168, 76, 0.08) !important;
+button.flex.flex-col.items-center.text-\[var\(--primary\)\],
+.flex.flex-col.items-center.justify-center.cursor-pointer.text-\[var\(--primary\)\] {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.06) 100%) !important;
+  border-color: var(--border-medium) !important;
+  box-shadow: 
+    inset 0 0 20px rgba(212, 175, 55, 0.08),
+    0 0 12px rgba(212, 175, 55, 0.10) !important;
 }
 
-/* ── Content panel (right side) ─────────────────────────────── */
-.overflow-y-auto,
-.overflow-y-scroll {
-  background: var(--surface-glass) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+/* Active tab gold bar */
+button.flex.flex-col.items-center.justify-center.text-\[var\(--primary\)\]::before,
+button.flex.flex-col.items-center.text-\[var\(--primary\)\]::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 15% !important;
+  bottom: 15% !important;
+  width: 2px !important;
+  background: linear-gradient(180deg, transparent 0%, var(--gold-primary) 50%, transparent 100%) !important;
+  border-radius: 0 2px 2px 0 !important;
 }
 
-/* ── Section / box cards ─────────────────────────────────────── */
-/* Each collapsible section or group box */
-.flex.flex-col.w-full.gap-\[1vh\],
-.flex.flex-col.w-full.gap-\[0\.5vh\],
-.flex.flex-col.w-full {
-  background: transparent !important;
+/* Nav icon styling */
+button.flex.flex-col svg,
+.flex.flex-col.items-center svg {
+  width: 1.3vw !important;
+  height: 1.3vw !important;
+  opacity: 0.7 !important;
+  transition: all 0.2s ease !important;
 }
 
-/* Actual visual card containers */
-.rounded-\[1vh\],
-[class*="rounded"] > .flex.flex-col,
-.w-full.rounded {
-  background: var(--surface-2) !important;
-  border: 1px solid var(--border-dim) !important;
-  border-radius: var(--radius-md) !important;
-  box-shadow:
-    0 2px 12px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(201, 168, 76, 0.06) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+button.flex.flex-col:hover svg,
+.flex.flex-col.items-center:hover svg {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3)) !important;
 }
 
-.rounded-\[1vh\]:hover,
-[class*="rounded"] > .flex.flex-col:hover {
-  border-color: var(--border-mid) !important;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(201, 168, 76, 0.12),
-    inset 0 1px 0 rgba(201, 168, 76, 0.10) !important;
+button.text-\[var\(--primary\)\] svg {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4)) !important;
 }
 
-/* ── Section header / category label ────────────────────────── */
-.text-\[var\(--primary\)\],
-.text-primary {
-  color: var(--gold) !important;
-  font-family: 'Cinzel', serif !important;
-  letter-spacing: 0.06em !important;
-  font-size: 0.72vw !important;
-  text-transform: uppercase !important;
+/* Nav label text */
+button.flex.flex-col span,
+.flex.flex-col.items-center span {
+  font-size: 0.55vw !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+  margin-top: 0.4vh !important;
+  opacity: 0.75 !important;
+  transition: opacity 0.2s ease !important;
 }
 
-/* ── Labels & text ───────────────────────────────────────────── */
-.text-white, .text-\[white\] {
-  color: var(--text-primary) !important;
-}
-
-.text-gray-400,
-.text-gray-500,
-.opacity-60,
-.opacity-70 {
-  color: var(--text-secondary) !important;
+button.flex.flex-col:hover span,
+.flex.flex-col.items-center:hover span {
   opacity: 1 !important;
 }
 
-/* ── Input fields / Steppers ─────────────────────────────────── */
-input[type="number"],
-input[type="text"],
-select {
-  background: var(--surface-3) !important;
-  border: 1px solid var(--border-dim) !important;
-  border-radius: var(--radius-sm) !important;
-  color: var(--text-primary) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+/* ══════════════════════════════════════════════════════════════
+   RIGHT CONTENT PANEL
+   ══════════════════════════════════════════════════════════════ */
+.overflow-y-auto,
+.overflow-y-scroll {
+  background: var(--bg-glass-light) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  padding: 1vh !important;
 }
 
-input[type="number"]:focus,
-input[type="text"]:focus,
-select:focus {
-  border-color: var(--gold-dim) !important;
-  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.20) !important;
+/* ══════════════════════════════════════════════════════════════
+   SECTION BOXES / CARDS
+   ══════════════════════════════════════════════════════════════ */
+/* Main section containers */
+.rounded-\[1vh\],
+div[class*="rounded-"][class*="bg-"] {
+  background: var(--bg-surface-2) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-bottom: 1vh !important;
+  overflow: hidden !important;
+}
+
+.rounded-\[1vh\]:hover,
+div[class*="rounded-"][class*="bg-"]:hover {
+  border-color: var(--border-medium) !important;
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Inner card content */
+.rounded-\[1vh\] > .flex,
+.rounded-\[1vh\] > div {
+  padding: 0.8vh 1vw !important;
+}
+
+/* Nested boxes */
+.flex.flex-col.w-full.gap-\[1vh\] > div,
+.flex.flex-col.w-full.gap-\[0\.5vh\] > div {
+  background: var(--bg-surface-3) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.6vh 0.8vw !important;
+  margin-bottom: 0.5vh !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECTION HEADERS / CATEGORY TITLES
+   ══════════════════════════════════════════════════════════════ */
+.text-\[var\(--primary\)\],
+.text-primary,
+span.text-\[var\(--primary\)\] {
+  color: var(--gold-primary) !important;
+  font-family: 'Cinzel', Georgia, serif !important;
+  font-weight: 600 !important;
+  font-size: 0.7vw !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.20) !important;
+}
+
+/* Sub-labels */
+.text-gray-400,
+.text-gray-500,
+span.opacity-60,
+span.opacity-70 {
+  color: var(--text-secondary) !important;
+  font-size: 0.6vw !important;
+  font-weight: 400 !important;
+  opacity: 1 !important;
+}
+
+/* White text */
+.text-white,
+.text-\[white\] {
+  color: var(--text-primary) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FORM INPUTS
+   ══════════════════════════════════════════════════════════════ */
+input[type="number"],
+input[type="text"],
+input[type="search"],
+select {
+  background: var(--bg-surface-4) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-primary) !important;
+  font-size: 0.65vw !important;
+  font-weight: 400 !important;
+  padding: 0.5vh 0.6vw !important;
+  transition: all 0.2s ease !important;
   outline: none !important;
 }
 
-/* ── Buttons ─────────────────────────────────────────────────── */
-button {
-  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+input:focus,
+select:focus {
+  border-color: var(--gold-dark) !important;
+  box-shadow: 
+    0 0 0 3px rgba(212, 175, 55, 0.12),
+    inset 0 0 10px rgba(212, 175, 55, 0.05) !important;
 }
 
-/* Primary action buttons */
+input::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════════════ */
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+/* Primary buttons (gold) */
 .bg-\[var\(--primary\)\],
-button.bg-\[var\(--primary\)\] {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%) !important;
+button.bg-\[var\(--primary\)\],
+button[class*="bg-"][class*="primary"] {
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%) !important;
   border: none !important;
-  color: var(--surface-0) !important;
-  font-weight: 600 !important;
   border-radius: var(--radius-sm) !important;
-  box-shadow: 0 2px 10px rgba(201, 168, 76, 0.30) !important;
+  color: var(--bg-base) !important;
+  font-weight: 600 !important;
+  font-size: 0.6vw !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.6vh 1vw !important;
+  box-shadow: 
+    0 2px 12px rgba(212, 175, 55, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.20) !important;
 }
 
 .bg-\[var\(--primary\)\]:hover,
 button.bg-\[var\(--primary\)\]:hover {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%) !important;
-  box-shadow: 0 4px 18px rgba(201, 168, 76, 0.45) !important;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%) !important;
+  box-shadow: 
+    0 4px 20px rgba(212, 175, 55, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px) !important;
 }
 
-/* Ghost / outline buttons (stepper arrows) */
-button.flex.items-center.justify-center.bg-\[var\(--secondary\)\],
-button.bg-\[var\(--secondary\)\] {
-  background: var(--surface-3) !important;
-  border: 1px solid var(--border-dim) !important;
+.bg-\[var\(--primary\)\]:active,
+button.bg-\[var\(--primary\)\]:active {
+  transform: translateY(0) !important;
+  box-shadow: 
+    0 2px 8px rgba(212, 175, 55, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Secondary buttons (ghost/outline) */
+.bg-\[var\(--secondary\)\],
+button.bg-\[var\(--secondary\)\],
+button[class*="bg-"][class*="secondary"] {
+  background: var(--bg-surface-4) !important;
+  border: 1px solid var(--border-light) !important;
   border-radius: var(--radius-sm) !important;
   color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  padding: 0.5vh 0.8vw !important;
 }
 
+.bg-\[var\(--secondary\)\]:hover,
 button.bg-\[var\(--secondary\)\]:hover {
-  border-color: var(--border-mid) !important;
-  background: var(--surface-3) !important;
-  color: var(--gold) !important;
+  background: var(--bg-surface-3) !important;
+  border-color: var(--border-medium) !important;
+  color: var(--gold-light) !important;
 }
 
-/* ── Dropdown ────────────────────────────────────────────────── */
+/* Stepper +/- buttons */
+button.flex.items-center.justify-center {
+  min-width: 1.8vw !important;
+  min-height: 1.8vw !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DROPDOWN MENUS
+   ══════════════════════════════════════════════════════════════ */
 .absolute.z-10,
-.absolute.z-\[100\] {
-  background: var(--surface-2) !important;
-  border: 1px solid var(--border-mid) !important;
+.absolute.z-\[100\],
+ul[class*="absolute"] {
+  background: var(--bg-surface-2) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid var(--border-medium) !important;
   border-radius: var(--radius-md) !important;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(201, 168, 76, 0.08) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.70),
+    0 0 0 1px rgba(212, 175, 55, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+  padding: 0.4vh !important;
+  overflow: hidden !important;
 }
 
 /* Dropdown items */
 .absolute.z-10 li,
-.absolute.z-\[100\] li {
-  border-radius: var(--radius-sm) !important;
-  transition: background 0.15s ease !important;
+.absolute.z-\[100\] li,
+ul[class*="absolute"] li {
+  padding: 0.5vh 0.8vw !important;
+  border-radius: var(--radius-xs) !important;
+  font-size: 0.6vw !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
 }
 
 .absolute.z-10 li:hover,
-.absolute.z-\[100\] li:hover {
-  background: rgba(201, 168, 76, 0.10) !important;
+.absolute.z-\[100\] li:hover,
+ul[class*="absolute"] li:hover {
+  background: rgba(212, 175, 55, 0.10) !important;
   color: var(--gold-light) !important;
 }
 
-/* Active / selected dropdown item */
-.absolute.z-10 li.bg-\[var\(--primary\)\],
-.absolute.z-\[100\] li.bg-\[var\(--primary\)\] {
-  background: rgba(201, 168, 76, 0.18) !important;
-  color: var(--gold) !important;
-}
-
-/* ── Slider track ────────────────────────────────────────────── */
-:root {
-  --primary: var(--gold) !important;
-  --secondary: var(--surface-3) !important;
-  --accent: var(--gold-light) !important;
-}
-
-input#slider[type=range]::-webkit-slider-runnable-track {
-  background:
-    linear-gradient(var(--gold), var(--gold)) 0 / var(--sx, 50%) 100% no-repeat,
-    var(--surface-3) !important;
-  border-radius: 999px !important;
-  height: 0.3vw !important;
-}
-
-input#slider[type=range]::-webkit-slider-thumb {
-  background: var(--gold) !important;
-  box-shadow: 0 0 6px rgba(201, 168, 76, 0.60) !important;
-  width: 0.9vw !important;
-  height: 0.9vw !important;
-  margin-top: -0.3vw !important;
-  border-radius: 50% !important;
-}
-
-input#slider[type=range]::-webkit-slider-thumb:hover {
-  background: var(--gold-light) !important;
-  box-shadow: 0 0 12px rgba(232, 204, 122, 0.80) !important;
-  filter: none !important;
-}
-
-/* ── Colour swatches ─────────────────────────────────────────── */
-.rounded-full {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.50) !important;
-  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
-}
-
-.rounded-full:hover {
-  transform: scale(1.15) !important;
-  box-shadow: 0 0 8px rgba(201, 168, 76, 0.50) !important;
-}
-
-/* Selected swatch ring */
-.ring-2, .ring {
-  outline: 2px solid var(--gold) !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 10px rgba(201, 168, 76, 0.55) !important;
-}
-
-/* ── Scrollbar ───────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}
-::-webkit-scrollbar-track {
-  background: var(--surface-1);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
-
-/* ── Dividers ────────────────────────────────────────────────── */
-hr, .border-t, .border-b {
-  border-color: var(--border-dim) !important;
-}
-
-/* ── Heritage / Face sliders container ──────────────────────── */
-.radial-background {
-  border: 1px solid var(--border-dim) !important;
-  border-radius: var(--radius-md) !important;
-  background: var(--surface-2) !important;
-}
-
-/* ── Outfit / Tattoo list items ──────────────────────────────── */
-.cursor-pointer.flex.items-center {
-  border-radius: var(--radius-sm) !important;
-  transition: background 0.15s ease, border-color 0.15s ease !important;
-}
-
-.cursor-pointer.flex.items-center:hover {
-  background: rgba(201, 168, 76, 0.08) !important;
-}
-
-/* ── Save / confirm button area ──────────────────────────────── */
-.flex.w-full.gap-\[1vh\] > button,
-.flex.w-full.gap-\[0\.5vh\] > button {
-  border-radius: var(--radius-sm) !important;
-  letter-spacing: 0.04em !important;
+/* Selected dropdown item */
+li.bg-\[var\(--primary\)\],
+li[class*="bg-"][class*="primary"] {
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: var(--gold-primary) !important;
   font-weight: 500 !important;
 }
 
-/* ── Subtle separator line between sections ─────────────────── */
-.gap-\[1vh\] > * + *,
-.gap-\[0\.5vh\] > * + * {
+/* ══════════════════════════════════════════════════════════════
+   SLIDERS / RANGE INPUTS
+   ══════════════════════════════════════════════════════════════ */
+input#slider[type=range],
+input[type=range] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  height: 1.5vh !important;
+}
+
+/* Track */
+input#slider[type=range]::-webkit-slider-runnable-track,
+input[type=range]::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--gold-primary) 0%,
+    var(--gold-primary) var(--sx, 50%),
+    var(--bg-surface-4) var(--sx, 50%),
+    var(--bg-surface-4) 100%
+  ) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 999px !important;
+  height: 0.35vh !important;
+}
+
+/* Thumb */
+input#slider[type=range]::-webkit-slider-thumb,
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%) !important;
+  border: 2px solid var(--bg-surface-1) !important;
+  border-radius: 50% !important;
+  width: 1vw !important;
+  height: 1vw !important;
+  margin-top: -0.35vh !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.40),
+    0 0 10px rgba(212, 175, 55, 0.30) !important;
+  transition: all 0.15s ease !important;
+}
+
+input#slider[type=range]::-webkit-slider-thumb:hover,
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.15) !important;
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.50),
+    0 0 16px rgba(212, 175, 55, 0.50) !important;
+}
+
+/* Firefox */
+input[type=range]::-moz-range-track {
+  background: var(--bg-surface-4) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 999px !important;
+  height: 0.35vh !important;
+}
+
+input[type=range]::-moz-range-thumb {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%) !important;
+  border: 2px solid var(--bg-surface-1) !important;
+  border-radius: 50% !important;
+  width: 1vw !important;
+  height: 1vw !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   COLOR SWATCHES / PALETTE
+   ══════════════════════════════════════════════════════════════ */
+.rounded-full {
+  border: 2px solid transparent !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.40) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+.rounded-full:hover {
+  transform: scale(1.18) translateY(-2px) !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.50),
+    0 0 10px rgba(212, 175, 55, 0.30) !important;
+}
+
+/* Selected swatch */
+.ring,
+.ring-2,
+.rounded-full.ring,
+.rounded-full.ring-2 {
+  outline: 2px solid var(--gold-primary) !important;
+  outline-offset: 3px !important;
+  box-shadow: 
+    0 0 16px rgba(212, 175, 55, 0.50),
+    0 2px 8px rgba(0, 0, 0, 0.40) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NUMBER STEPPERS
+   ══════════════════════════════════════════════════════════════ */
+.flex.items-center.gap-\[0\.5vh\],
+.flex.items-center.gap-\[1vh\] {
+  background: var(--bg-surface-3) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.3vh 0.4vw !important;
+}
+
+/* Stepper display value */
+.flex.items-center span,
+.flex.items-center div {
+  font-variant-numeric: tabular-nums !important;
+  font-weight: 500 !important;
+  min-width: 2vw !important;
+  text-align: center !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   OUTFIT & TATTOO LIST ITEMS
+   ══════════════════════════════════════════════════════════════ */
+.cursor-pointer.flex.items-center,
+li.cursor-pointer,
+div.cursor-pointer {
+  background: var(--bg-surface-3) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.6vh 0.8vw !important;
+  margin-bottom: 0.4vh !important;
+  transition: all 0.2s ease !important;
+}
+
+.cursor-pointer.flex.items-center:hover,
+li.cursor-pointer:hover,
+div.cursor-pointer:hover {
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-color: var(--border-light) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERITAGE / FACE EDITOR PANEL
+   ══════════════════════════════════════════════════════════════ */
+.radial-background {
+  background: radial-gradient(
+    ellipse at center,
+    var(--bg-surface-2) 0%,
+    var(--bg-surface-1) 100%
+  ) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface-1);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-muted);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dark);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-muted) var(--bg-surface-1);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DIVIDERS & SEPARATORS
+   ══════════════════════════════════════════════════════════════ */
+hr,
+.border-t,
+.border-b,
+[class*="border-t"],
+[class*="border-b"] {
+  border-color: var(--border-subtle) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER BUTTONS (SAVE / CLOSE)
+   ══════════════════════════════════════════════════════════════ */
+.flex.w-full.gap-\[1vh\] > button,
+.flex.w-full.gap-\[0\.5vh\] > button {
+  flex: 1 !important;
+  padding: 0.8vh 1.2vw !important;
+  font-size: 0.65vw !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TOOLTIP / HOVER INFO
+   ══════════════════════════════════════════════════════════════ */
+[title],
+[data-tooltip] {
   position: relative !important;
 }
 
-/* ── Icon colour in nav ──────────────────────────────────────── */
-svg path, svg rect, svg circle, svg polygon {
-  transition: stroke 0.2s ease, fill 0.2s ease !important;
+/* ══════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.30);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, 0);
+  }
+}
+
+/* Apply subtle entrance animation */
+.rounded-\[1vh\],
+div[class*="rounded-"][class*="bg-"] {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ICON SVG COLORS
+   ══════════════════════════════════════════════════════════════ */
+svg path,
+svg rect,
+svg circle,
+svg polygon,
+svg line {
+  transition: all 0.2s ease !important;
+}
+
+/* Active tab icons get gold color */
+button.text-\[var\(--primary\)\] svg path,
+button.text-\[var\(--primary\)\] svg rect,
+button.text-\[var\(--primary\)\] svg circle {
+  stroke: var(--gold-primary) !important;
+  fill: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONFIRM DIALOG / MODAL
+   ══════════════════════════════════════════════════════════════ */
+.fixed.inset-0,
+.absolute.inset-0 {
+  background: rgba(0, 0, 0, 0.70) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Modal content */
+.fixed.inset-0 > div,
+.absolute.inset-0 > div {
+  background: var(--bg-surface-2) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.70),
+    var(--shadow-glow) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EMPTY STATES / NO DATA
+   ══════════════════════════════════════════════════════════════ */
+.flex.items-center.justify-center.h-full,
+.text-center.opacity-50 {
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LOCKED ITEMS
+   ══════════════════════════════════════════════════════════════ */
+.opacity-50,
+[class*="locked"],
+.cursor-not-allowed {
+  opacity: 0.45 !important;
+  filter: grayscale(0.6) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE FINE-TUNING
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1600px) {
+  :root {
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  }
+}
+
+@media (max-width: 1280px) {
+  button.flex.flex-col span {
+    font-size: 0.6vw !important;
+  }
+  
+  .text-\[var\(--primary\)\] {
+    font-size: 0.8vw !important;
+  }
 }
